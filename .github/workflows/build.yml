@@ -42,18 +42,18 @@ jobs:
           echo '🔎 Evidence attached: `signature` 🔏 ' 
 
       - name: Collecting Information from Git
-        run: jf rt build-add-git ${{ vars.BUILD_NAME }} ${{ github.run_number }}
+        run: jf rt build-add-git
 
       - name: Collecting Environment Variables
-        run: jf rt build-collect-env ${{ vars.BUILD_NAME }} ${{ github.run_number }}
+        run: jf rt build-collect-env
 
       - name: Publish build info
-        run: jfrog rt build-publish ${{ vars.BUILD_NAME }} ${{ github.run_number }}
-
+        run: jfrog rt build-publish
+        
       - name: Sign build evidence
         run: |
           echo '{ "actor": "${{ github.actor }}", "date": "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'" }' > sign.json
-          jf evd create --build-name ${{ vars.BUILD_NAME }} --build-number ${{ github.run_number }} \
+          jf evd create --build-name ${{ github.job }} --build-number ${{ github.run_number }} \
             --predicate ./sign.json --predicate-type https://jfrog.com/evidence/build-signature/v1 \
             --key "${{ secrets.PRIVATE_KEY }}"  --key-alias ${{ secrets.KEY_ALIAS }}
           echo '🔎 Evidence attached: `build-signature` 🔏 ' >> $GITHUB_STEP_SUMMARY
@@ -67,7 +67,7 @@ jobs:
       - name: Approve release-bundle
         run: |
           echo '{ "actor": "${{ github.actor }}", "date": "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'", "approved": "true" }' > rbv2_evidence.json
-          echo 'Test on Release bundle ['${{ vars.BUNDLE_NAME }}':'${{ github.run_number }}']('${JF_LINK}') success' >> $GITHUB_STEP_SUMMARY
+          echo 'Approve Release bundle ['${{ github.actor }}-evidence-enablement':'${{ github.run_number }}']('${JF_LINK}') success' >> $GITHUB_STEP_SUMMARY
           jf evd create --key "${{ secrets.PRIVATE_KEY }}" --key-alias ${{ secrets.KEY_ALIAS }} \
-            --release-bundle ${{ vars.BUNDLE_NAME }} --release-bundle-version ${{ github.run_number }} \
+            --release-bundle ${{ github.actor }}-evidence-enablement --release-bundle-version ${{ github.run_number }} \
             --predicate ./policy.json --predicate-type https://jfrog.com/evidence/approval/v1
