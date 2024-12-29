@@ -1,4 +1,4 @@
-package example-go-app
+package example
 
 # Define the expected predicateSlugs
 expected_predicate_slugs := {"cyclonedx-vex", "testing-results", "promotion"}
