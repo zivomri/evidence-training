@@ -1,4 +1,4 @@
-package example
+package policy
 
 # Define the expected predicateSlugs
 expected_predicate_slugs := {"cyclonedx-vex", "approved"}
