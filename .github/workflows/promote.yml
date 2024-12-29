@@ -37,9 +37,9 @@ jobs:
       - name: Run policy
         id: run_policy
         run: |
-          result=$(opa eval --input ./evidence_graph.json --data policy/policy.rego "data.greenpizza.output" | jq '.result[0].expressions[0].value.approved')
-          echo "RESULT=$result" >> $GITHUB_ENV
-          echo "RESULT=$result" >> $GITHUB_STEP_SUMMARY
+          RESULT=$(opa eval --input ./evidence_graph.json --data policy/policy.rego "data.greenpizza.output" | jq '.result[0].expressions[0].value.approved')
+          echo "RESULT=${RESULT}" >> $GITHUB_ENV
+          echo "RESULT=${RESULT}" >> $GITHUB_STEP_SUMMARY
 
       - name: Promote to Test
         run: |
