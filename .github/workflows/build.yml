@@ -49,7 +49,7 @@ jobs:
       - name: Sign build evidence
         run: |
           echo '{ "actor": "${{ github.actor }}", "date": "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'" }' > sign.json
-          jf evd create --build-name ${{ github.workflow }} --build-number ${{ github.run_number }} \
+          jf evd create --build-name "${{ github.workflow }}" --build-number ${{ github.run_number }} \
             --predicate ./sign.json --predicate-type https://jfrog.com/evidence/build-signature/v1 \
             --key "${{ secrets.PRIVATE_KEY }}"  --key-alias ${{ secrets.KEY_ALIAS }}
           echo '🔎 Evidence attached: `build-signature` 🔏 ' >> $GITHUB_STEP_SUMMARY
@@ -63,7 +63,7 @@ jobs:
       - name: Approve release-bundle
         run: |
           echo '{ "actor": "${{ github.actor }}", "date": "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'", "approved": "true" }' > rbv2_evidence.json
-          echo 'Approve Release bundle ['${{ github.actor }}-evidence-enablement':'${{ github.run_number }}']('${JF_LINK}') success' >> $GITHUB_STEP_SUMMARY
           jf evd create --key "${{ secrets.PRIVATE_KEY }}" --key-alias ${{ secrets.KEY_ALIAS }} \
             --release-bundle ${{ github.actor }}-evidence-enablement --release-bundle-version ${{ github.run_number }} \
             --predicate ./policy.json --predicate-type https://jfrog.com/evidence/approval/v1
+          echo 'Approve Release bundle ['${{ github.actor }}-evidence-enablement':'${{ github.run_number }}']('${JF_LINK}') success' >> $GITHUB_STEP_SUMMARY
