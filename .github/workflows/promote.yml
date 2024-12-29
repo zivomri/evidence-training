@@ -37,7 +37,7 @@ jobs:
       - name: Run policy
         id: run_policy
         run: |
-          opa eval --input ./evidence_graph.json --data policy/policy.rego 
+          opa eval --input ./evidence_graph.json --data policy/policy.rego --schema schema.json
           RESULT=$(opa eval --input ./evidence_graph.json --data policy/policy.rego "data.greenpizza.output" | jq '.result[0].expressions[0].value.approved')
           echo "RESULT=${RESULT}" >> $GITHUB_ENV
           echo "RESULT=${RESULT}" >> $GITHUB_STEP_SUMMARY
