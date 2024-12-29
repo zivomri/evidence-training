@@ -1,7 +1,7 @@
 package example
 
 # Define the expected predicateSlugs
-expected_predicate_slugs := {"cyclonedx-vex", "testing-results", "promotion"}
+expected_predicate_slugs := {"cyclonedx-vex", "approved"}
 
 # Collect all predicateSlugs found in the input JSON
 found_predicate_slugs := {slug |
@@ -19,7 +19,7 @@ found := [slug | slug := found_predicate_slugs[_]]
 not_found := [slug | slug := expected_predicate_slugs[_]; not found_predicate_slugs[slug]]
 
 # Check if all expected predicateSlugs are present
-approved {
+approved := {
     count({slug | slug := expected_predicate_slugs[_]; slug != ""}) == count(found_predicate_slugs & expected_predicate_slugs)
 }
 
