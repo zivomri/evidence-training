@@ -1,7 +1,7 @@
-package greenpizza
+package evidence-example-policy
 
 # Define the expected predicateSlugs
-expected_predicate_slugs := {"cyclonedx-vex", "testing-results", "build-signature"}
+expected_predicate_slugs := {"cyclonedx-vex", "testing-results", "promotion"}
 
 # Collect all predicateSlugs found in the input JSON
 found_predicate_slugs := {slug |
