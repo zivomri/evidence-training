@@ -47,6 +47,7 @@ jobs:
             jf release-bundle-promote ${{ vars.BUNDLE_NAME }} ${{ github.run_number }} TEST --signing-key ${{ secrets.RB_KEY }} --sync=true
             echo "🚀 Succesfully promoted to \`TEST\` environemnt" >> $GITHUB_STEP_SUMMARY
           else
+            opa eval --input ./evidence_graph.json --data policy/policy.rego "data.greenpizza.output" | jq '.result[0].expressions[0].value'
             echo "Fail promotion policy check" >> $GITHUB_STEP_SUMMARY
             exit 1
           fi
