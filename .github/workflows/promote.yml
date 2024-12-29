@@ -1,5 +1,4 @@
-name: Build and deploy with evidence
-
+name: Promote-to-test
 on:
   [workflow_dispatch]
 
