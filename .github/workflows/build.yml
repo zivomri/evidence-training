@@ -56,7 +56,7 @@ jobs:
 
       - name: Create release bundle
         run: |
-          echo '{ "files": [ {"build": "'"${{ vars.BUILD_NAME }}/${{ github.run_number }}"'" } ] }' > bundle-spec.json
+          echo '{ "files": [ {"build": "'"${{ github.workflow }}/${{ github.run_number }}"'" } ] }' > bundle-spec.json
           jf release-bundle-create ${{ github.actor }}-evidence-enablement ${{ github.run_number }} --signing-key ${{ secrets.RB_KEY }} --spec bundle-spec.json --sync=true
           echo '📦 Release bundle ${{ github.actor }}-evidence-enablement created' >> $GITHUB_STEP_SUMMARY
 
