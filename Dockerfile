@@ -19,7 +19,7 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=${TARGETARCH} go build -o go-server .
 
 # Stage 2: Create the final image
-FROM ${REPO_URL}/alpine:latest
+FROM alpine:latest
 
 # Set the working directory
 WORKDIR /app
