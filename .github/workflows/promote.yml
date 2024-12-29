@@ -1,7 +1,10 @@
 name: Promote-to-test
 on:
-  [workflow_dispatch]
-
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Release bundle version'     
+        required: true
 permissions:
   id-token: write
   contents: read
@@ -28,7 +31,7 @@ jobs:
 
       - name: Call GraphQL
         run: |
-          ./scripts/graphql.sh ${{ vars.ARTIFACTORY_URL }} ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }} release-bundles-v2 ${{ vars.BUNDLE_NAME }} ${{ github.run_number }}
+          ./scripts/graphql.sh ${{ vars.ARTIFACTORY_URL }} ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }} release-bundles-v2 ${{ github.actor }}-evidence-enablement ${{ github.run_number }}
           cat evidence_graph.json
 
       - name: Run policy
@@ -38,7 +41,7 @@ jobs:
           echo "RESULT=$result" >> $GITHUB_ENV
           echo "RESULT=$result" >> $GITHUB_STEP_SUMMARY
 
-      - name: Promote to Production
+      - name: Promote to Test
         run: |
           if [ "${{ env.RESULT }}" == "true" ]; then
             jf release-bundle-promote ${{ vars.BUNDLE_NAME }} ${{ github.run_number }} TEST --signing-key ${{ secrets.RB_KEY }} --sync=true
