@@ -1,4 +1,4 @@
-package evidence-example-policy
+package example-go-app
 
 # Define the expected predicateSlugs
 expected_predicate_slugs := {"cyclonedx-vex", "testing-results", "promotion"}
