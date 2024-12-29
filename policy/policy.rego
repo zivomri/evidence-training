@@ -1,8 +1,8 @@
 package greenpizza
 
 # Define the expected predicateSlugs
-# expected_predicate_slugs := {"cyclonedx-vex", "approval", "build-signature"}
-expected_predicate_slugs := {"approval", "build-signature"}
+# expected_predicate_slugs := {"cyclonedx-vex", "testing-results", "build-signature"}
+expected_predicate_slugs := {"cyclonedx-vex", "build-signature"}
 
 # Collect all predicateSlugs found in the input JSON
 found_predicate_slugs := {slug |
