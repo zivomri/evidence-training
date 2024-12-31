@@ -25,12 +25,12 @@ These are the steps we will cover suring our training:
 ***
 **Note**
 For more information about evidence on the JFrog platform, see the following resources:
-* Help center
-* GitHub public evidence examples
-* Evidence solution sheet
-* Training Deck
-* FAQ page
-* Evidence service confluence space
+* [Help center](https://jfrog.com/help/r/evidence-management/evidence-management)
+* [GitHub public evidence examples](https://github.com/jfrog/Evidence-Examples)
+* [Evidence solution sheet](https://drive.google.com/file/d/16BIn_PR9mR-KzvMAoWi-n_1HmUfhRiAW/view?usp=sharing)
+* [Training Deck](https://docs.google.com/presentation/d/1nZWFAMEOdW9n1uCNQiIVJSOFrsWGQfs-JNjydP5sxwM/edit?usp=sharing)
+* [FAQ page](https://docs.google.com/document/d/1Yzodo2Nl3XsRQYXxAzW0yidrG9XqbqmJc-DYrpVdiGE/edit?usp=sharing)
+* [Evidence service confluence space](https://jfrog-int.atlassian.net/wiki/spaces/DPCP/pages/981631021/Evidence+Knowledge+Transfer)
 ***
 
 ## Prerequisites {#prerequisites}
