@@ -14,10 +14,11 @@ We will also experience validating the existing evidences, and apply an OPA (Ope
 
 These are the steps we will cover suring our training:
 
-1. [Initial configuration](#initial-preparations)  
-2. [Running the build workflow](#run-build-workflow)  
-3. [Try the promotion workflow](#try-promotion-workflow)  
-4. [Configure missing evidences](#configure-missing-evidences)
+1.[Prerequisites](#prerequisites)
+2. [Initial configuration](#initial-preparations)  
+3. [Running the build workflow](#run-build-workflow)  
+4. [Try the promotion workflow](#try-promotion-workflow)  
+5. [Configure missing evidences](#configure-missing-evidences)
    1. [Configre Approval evidence](#configure-approval-evidences)
    2. [Configure Sbom evidence](#configure-sbom-evidences)
 6. [Run the promotion workflow](#run-promotion-workflow)  
@@ -35,6 +36,10 @@ For more information about evidence on the JFrog platform, see the following res
 
 ## Prerequisites {#prerequisites}
 
+* Create a dedicated docker repository in [solenglatest.jfrog.io](https://solenglatest.jfrog.io)
+* Create a evidence signing key using the following steps:
+   *  openssl genrsa -out private.pem 2048
+   *  openssl rsa -in private.pem -pubout -out public.pem
 * Make sure JFrog CLI 2.65.0 or above is installed and in your system PATH. For installation instructions, see [Install JFrog CLI](#bootstrapping).  
 * Make sure Artifactory can be used as a Docker registry. Please refer to [Getting Started with Artifactory as a Docker Registry](https://www.jfrog.com/confluence/display/JFROG/Getting+Started+with+Artifactory+as+a+Docker+Registry) in the JFrog Artifactory User Guide. You should end up with a Docker registry URL, which is mapped to a local Docker repository (or a virtual Docker repository with a local deployment target) in Artifactory. You'll need to know the name of the Docker repository to later collect the published image build-info.  
 * Make sure the following repository variables are configured in GitHub settings:  
