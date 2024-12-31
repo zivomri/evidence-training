@@ -37,9 +37,11 @@ For more information about evidence on the JFrog platform, see the following res
 ## Prerequisites {#prerequisites}
 
 * Create a dedicated docker repository in [solenglatest.jfrog.io](https://solenglatest.jfrog.io)
-* Create a evidence signing key using the following steps:
-   *  openssl genrsa -out private.pem 2048
-   *  openssl rsa -in private.pem -pubout -out public.pem
+* Create a evidence signing key using the following commands:
+  ```
+  openssl genrsa -out private.pem 2048
+  openssl rsa -in private.pem -pubout -out public.pem
+  ```
 *  Upload the public key to [solenglatest.jfrog.io](https://solenglatest.jfrog.io) using the [public keys](https://jfrog.com/help/r/jfrog-platform-administration-documentation/manage-public-keys) screen
    * Use pbcopy to copy the public key to the artifactory UI to make sure no special characters are copied, for example:
      ```
