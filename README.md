@@ -18,8 +18,8 @@ These are the steps we will cover suring our training:
 2. [Running the build workflow](#run-build-workflow)  
 3. [Try the promotion workflow](#try-promotion-workflow)  
 4. [Configure missing evidences](#configure-missing-evidences)
-   4.1. [Configre Approval evidence](#configure-approval-evidences)
-   4.2. [Configure Sbom evidence](#configure-sbom-evidences)
+   1. [Configre Approval evidence](#configure-approval-evidences)
+   2. [Configure Sbom evidence](#configure-sbom-evidences)
 6. [Run the promotion workflow](#run-promotion-workflow)  
 
 ***
