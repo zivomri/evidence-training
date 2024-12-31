@@ -1,31 +1,36 @@
-# Attach Evidence in Artifactory
+# RLM/Evidence training
 
 Artifactory enables you to attach evidence (signed metadata) to a designated subject, such as an artifact, build, package, or Release Bundle v2. These evidence files provide a record of an external process performed on the subject, such as test results, vulnerability scans, or official approval.
 
-This document describes how to use the JFrog CLI to create different types of evidence related to a Docker image deployed to Artifactory, including:
+In this training we will exrsize the process of attaching different types of evidences, including:
 
 * Package evidence
-* Generic evidence
 * Build evidence
-* Release Bundle evidence   
+* Release Bundle evidence
+* Approval evidence
+* CyclonDX evidence
 
-The following workflow is described:
+We will also experience validating the existing evidences, and apply an OPA (Open Policy Engine) policy in order to control the Release bundle promotion flow
 
-1. [Bootstrapping](#bootstrapping)  
-   1. [Install JFrog CLI](#install-jfrog-cli)  
-   2. [Log In to the Artifactory Docker Registry](#log-in-to-the-artifactory-docker-registry)  
-2. [Build the Docker Image](#build-the-docker-image)  
-3. [Attach Package Evidence](#attach-package-evidence)  
-4. [Upload README File and Associated Evidence](#upload-readme-file-and-associated-evidence)  
-5. [Publish Build Info and Attach Build Evidence](#publish-build-info-and-attach-build-evidence)  
-6. [Create a Release Bundle v2 from the Build](#create-a-release-bundle-v2-from-the-build)  
-7. [Attach Release Bundle Evidence](#attach-release-bundle-evidence)
+These are the steps we will cover suring our training:
 
-Refer to [build.yaml](https://github.com/jfrog/Evidence-Examples/tree/main/.github/workflows) for the complete script.
+1. [Initial configuration](#initial-preparations)  
+2. [Running the build workflow](#run-build-workflow)  
+3. [Try the promotion workflow](#try-promotion-workflow)  
+4. [Configure missing evidences](#configure-missing-evidences)
+   4.1. [Configre Approval evidence](#configure-approval-evidences)
+   4.2. [Configure Sbom evidence](#configure-sbom-evidences)
+6. [Run the promotion workflow](#run-promotion-workflow)  
 
 ***
 **Note**
-For more information about evidence on the JFrog platform, see Evidence Management.
+For more information about evidence on the JFrog platform, see the following resources:
+* Help center
+* GitHub public evidence examples
+* Evidence solution sheet
+* Training Deck
+* FAQ page
+* Evidence service confluence space
 ***
 
 ## Prerequisites {#prerequisites}
