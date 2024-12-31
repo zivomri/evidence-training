@@ -14,7 +14,7 @@ We will also experience validating the existing evidences, and apply an OPA (Ope
 
 These are the steps we will cover suring our training:
 
-1. [Prerequisites](#prerequisites)
+1.[Prerequisites](#prerequisites)
 2. [Initial configuration](#initial-preparations)  
 3. [Running the build workflow](#run-build-workflow)  
 4. [Try the promotion workflow](#try-promotion-workflow)  
