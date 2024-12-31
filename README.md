@@ -40,16 +40,7 @@ For more information about evidence on the JFrog platform, see the following res
 * Create a evidence signing key using the following steps:
    *  openssl genrsa -out private.pem 2048
    *  openssl rsa -in private.pem -pubout -out public.pem
-* Make sure JFrog CLI 2.65.0 or above is installed and in your system PATH. For installation instructions, see [Install JFrog CLI](#bootstrapping).  
-* Make sure Artifactory can be used as a Docker registry. Please refer to [Getting Started with Artifactory as a Docker Registry](https://www.jfrog.com/confluence/display/JFROG/Getting+Started+with+Artifactory+as+a+Docker+Registry) in the JFrog Artifactory User Guide. You should end up with a Docker registry URL, which is mapped to a local Docker repository (or a virtual Docker repository with a local deployment target) in Artifactory. You'll need to know the name of the Docker repository to later collect the published image build-info.  
-* Make sure the following repository variables are configured in GitHub settings:  
-  * ARTIFACTORY_URL (location of your Artifactory installation)  
-  * BUILD_NAME (planned name for the build of the Docker image)  
-  * BUNDLE_NAME (planned name for the Release Bundle created from the build)  
-* Make sure the following repository secrets are configured in GitHub settings:  
-  * ARTIFACTORY_ACCESS_TOKEN (access token used for authentication)  
-  * JF_USER (your username in Artifactory)  
-  * PRIVATE_KEY (the key used to sign evidence)
+*  Upload the public key to [solenglatest.jfrog.io](https://solenglatest.jfrog.io) using the [public keys](https://jfrog.com/help/r/jfrog-platform-administration-documentation/manage-public-keys) screen
 
 ## 
 
