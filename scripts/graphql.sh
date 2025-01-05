@@ -8,7 +8,7 @@ VERSION=$5
 
 export REPOSITORY_KEY NAME VERSION
 
-QUERY=$(envsubst < scripts/graphql_query.gql)
+QUERY=$(envsubst < scripts/graphql_query2.gql)
 
 curl -X POST "${BASE_URL}/evidence/api/v1/onemodel/graphql" \
   -H "Content-Type: application/json" \
