@@ -34,8 +34,7 @@ approved if {
 output := {
     "found": found,
     "not_found": not_found,
-    "approved": approved,
-    "approver": approver
+    "approved": approved
 }
 
 # Provide a default output to ensure the rule always produces something
