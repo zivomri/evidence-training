@@ -21,7 +21,7 @@ These are the steps we will cover suring our training:
 5. [Configure missing evidences](#configure-missing-evidences)
    1. Configre Approval evidence
    2. Configure Sbom evidence
-6. [Run the promotion workflow](#run-promotion-workflow)  
+6. [Re-Run the promotion workflow](#run-promotion-workflow)  
 
 ***
 **Note**
@@ -51,7 +51,7 @@ For more information about evidence on the JFrog platform, see the following res
 
 ## 2. Initial configuration  {#initial-configuration}
 
-In this section you will configure your environment to be able to run the evidence github workflow we will be using throughout the training
+In this step you will configure your environment to be able to run the evidence github workflow we will be using throughout the training
 
 1. Fork the evidence-enablement repository.
 2. Add your name as a prefix to the build name, in the build.yml file.
@@ -67,7 +67,7 @@ In this section you will configure your environment to be able to run the eviden
 
 ## 3. Running the build workflow {#run-build-workflow}
 
-In this secrion we will run the build workflow for the first time and review the results.
+In this step we will run the build workflow for the first time and review the results.
 
 1. Navigate to the build workflow, and run it.
 2. Review the build summery and see which steps and resources were created as part of the workflow.
@@ -77,87 +77,30 @@ In this secrion we will run the build workflow for the first time and review the
 
 ## 4. Try the promotion workflow {#try-promotion-workflo}
 
-In this section you will try to promote the release bundle to QA.
+In this step you will try to promote the release bundle to QA.
 
 1. Navigate to the promote workflow, and run it.
 2. Check if the workflow completed seuccessfully.
-3. If it did not try and figure out why the workflow failed.
+3. If it did not try and figure out why the workflow failed by reviewing the following files:
+   1. ./github/build.yml
+   2. ./github/promote.yml
+   3. ./scripts/graphql.sh
+   4. ./scripts/graphql_query.gql
+   5. ./policy/policy.rego
 
 ## 5. Configure missing evidences {#configure-missing-evidences}
 
-This section of [build.yaml](https://github.com/jfrog/Evidence-Examples/tree/main/.github/workflows) creates evidence for the package containing the Docker image. The evidence is signed with your private key, as defined in the [Prerequisites](#prerequisites).
+In this step we will configur the missing evidences so the workflow can path the policy validation.
 
-```
-- name: Evidence on docker  
-  run: |  
-     echo '{ "actor": "${{ github.actor }}", "date": "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'" }' > sign.json  
-     jf evd create --package-name example-project-app --package-version 32 --package-repo-name example-project-docker-dev \  
-       --key "${{ secrets.PRIVATE_KEY }}" \  
-       --predicate ./sign.json --predicate-type https://jfrog.com/evidence/signature/v1   
-     echo ' Evidence attached: `signature` ' 
-```
+1. Uncomment the 'Approve release-bundle' step in the build workflow
+2. Add the created release bundle to Xray indexing. This will allow Xray to automatically create the SBOM
 
-## Upload README File and Associated Evidence {#upload-readme-file-and-associated-evidence}
+## 6. Re-Run the promotion workflow {#run-promotion-workflow}
 
-This section of [build.yaml](https://github.com/jfrog/Evidence-Examples/tree/main/.github/workflows) uploads the README file and creates signed evidence about this generic artifact. The purpose of this section is to demonstrate the ability to create evidence for any type of file uploaded to Artifactory, in addition to packages, builds, and Release Bundles.
+In this step we will rerun the promotion workflow again, after adding all of the evidences expected by the policy.
 
-```
-- name: Upload readme file  
-  run: |  
-    jf rt upload ./README.md example-project-generic-dev/readme/${{ github.run\_number }}/ --build-name ${{ vars.BUILD_NAME }} --build-number ${{ github.run_number }}  
-    jf evd create --subject-repo-path example-project-generic-dev/readme/${{ github.run_number }}/README.md \  
-      --key "${{ secrets.PRIVATE_KEY }}" \  
-      --predicate ./sign.json --predicate-type https://jfrog.com/evidence/signature/v1
-```
-
-## Publish Build Info and Attach Build Evidence {#publish-build-info-and-attach-build-evidence}
-
-This section of [build.yaml](https://github.com/jfrog/Evidence-Examples/tree/main/.github/workflows) creates a build from the package containing the Docker image and then creates signed evidence attesting to its creation.
-
-```
-  - name: Publish build info  
-    run: jfrog rt build-publish ${{ vars.BUILD_NAME }} ${{ github.run_number }}
-
-  - name: Sign build evidence  
-    run: |  
-      echo '{ "actor": "${{ github.actor }}", "date": "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'" }' > sign.json  
-      jf evd create --build-name ${{ vars.BUILD_NAME }} --build-number ${{ github.run_number }} \
-        --predicate ./sign.json --predicate-type https://jfrog.com/evidence/build-signature/v1 \
-        --key "${{ secrets.PRIVATE_KEY }}"  
-      echo ' Evidence attached: `build-signature` ' >> $GITHUB_STEP_SUMMARY
-```
-
-## Create a Release Bundle v2 from the Build {#create-a-release-bundle-v2-from-the-build}
-
-This section of [build.yaml](https://github.com/jfrog/Evidence-Examples/tree/main/.github/workflows) creates an immutable Release Bundle v2 from the build containing the Docker image. Having a Release Bundle prevents any changes to the Docker image as it progresses through the various stages of your SDLC towards eventual distribution to your end users.
-
-```
-- name: Create release bundle  
-  run: |  
-    echo '{ "files": [ {"build": "'"${{ vars.BUILD_NAME }}/${{ github.run_number }}"'" } ] }' > bundle-spec.json  
-    jf release-bundle-create ${{ vars.BUNDLE_NAME }} ${{ github.run_number }} --signing-key PGP-RSA-2048 --spec bundle-spec.json --sync=true  
-    NAME_LINK=${{ vars.ARTIFACTORY_URL }}'/ui/artifactory/lifecycle/?bundleName='${{ vars.BUNDLE_NAME }}'&bundleToFlash='${{ vars.BUNDLE_NAME }}'&repositoryKey=example-project-release-bundles-v2&activeKanbanTab=promotion'  
-    VER_LINK=${{ vars.ARTIFACTORY_URL }}'/ui/artifactory/lifecycle/?bundleName='${{ vars.BUNDLE_NAME }}'&bundleToFlash='${{ vars.BUNDLE_NAME }}'&releaseBundleVersion='${{ github.run_number }}'&repositoryKey=example-project-release-bundles-v2&activeVersionTab=Version%20Timeline&activeKanbanTab=promotion'  
-    echo ' Release bundle ['${{ vars.BUNDLE_NAME }}']('${NAME_LINK}'):['${{ github.run_number }}']('${VER_LINK}') created' >> $GITHUB_STEP_SUMMARY
-```
-***
-**Note**
-
-For more information about using the JFrog CLI to create a Release Bundle, see [https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli/cli-for-jfrog-artifactory/release-lifecycle-management](https://docs.jfrog-applications.jfrog.io/jfrog-applications/jfrog-cli/cli-for-jfrog-artifactory/release-lifecycle-management).
-***
-
-## Attach Release Bundle Evidence {#attach-release-bundle-evidence}
-
-This section of [build.yaml](https://github.com/jfrog/Evidence-Examples/tree/main/.github/workflows) creates signed evidence about the Release Bundle. 
-
-```
- - name: Evidence on release-bundle v2  
-   run: |  
-     echo '{ "actor": "${{ github.actor }}", "date": "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'" }' > rbv2_evidence.json  
-     JF_LINK=${{ vars.ARTIFACTORY_URL }}'/ui/artifactory/lifecycle/?bundleName='${{ vars.BUNDLE_NAME }}'&bundleToFlash='${{ vars.BUNDLE_NAME }}'&releaseBundleVersion='${{ github.run_number }}'&repositoryKey=release-bundles-v2&activeVersionTab=Version%20Timeline&activeKanbanTab=promotion'  
-     echo 'Test on Release bundle ['${{ vars.BUNDLE_NAME }}':'${{ github.run_number }}']('${JF_LINK}') success' >> $GITHUB_STEP_SUMMARY  
-     jf evd create --release-bundle ${{ vars.BUNDLE_NAME }} --release-bundle-version ${{ github.run_number }} \  
-       --predicate ./rbv2_evidence.json --predicate-type https://jfrog.com/evidence/rbv2-signature/v1 \  
-       --key "${{ secrets.PRIVATE_KEY }}"  
-     echo ' Evidence attached: integration-test ' >> $GITHUB_STEP_SUMMARY  
-```
+1. Navigate to the promote workflow, and run it again.
+2. Make sure the workflow completese successfully.
+3. Navigate to the release bundle in the JFrog platform using the link in the summary page.
+4. Navigate to the evidence graph tab and review the evidences, created as part of the updated build.
+5. Review the approval evidence content, and check which data is included in the evidence. Where is this data comming from?
