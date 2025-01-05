@@ -40,7 +40,6 @@ jobs:
           opa eval --input ./evidence_graph.json --data policy/policy.rego "data.policy.output"
           RESULT=$(opa eval --input ./evidence_graph.json --data policy/policy.rego "data.policy.output" | jq '.result[0].expressions[0].value.approved[0]')
           echo "RESULT=${RESULT}" >> $GITHUB_ENV
-          echo "RESULT=${RESULT}" >> $GITHUB_STEP_SUMMARY
 
       - name: Promote to Test
         run: |
