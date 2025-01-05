@@ -48,7 +48,7 @@ For more information about evidence on the JFrog platform, see the following res
      ```
      cat public.pem | pbcopy
      ```
-
+***
 ## 2. Initial configuration  {#initial-configuration}
 
 In this step you will configure your environment to be able to run the evidence github workflow we will be using throughout the training
@@ -64,7 +64,7 @@ In this step you will configure your environment to be able to run the evidence 
       2. KEY_ALIAS - the alias of the public key you uploaded to the platform.
       4. RB_KEY - a signing key that will be used to sign the Release bundle (If you do not have one you can use `evidence-demo-rbv2-key`).
 
-
+***
 ## 3. Running the build workflow {#run-build-workflow}
 
 In this step we will run the build workflow for the first time and review the results.
@@ -75,6 +75,7 @@ In this step we will run the build workflow for the first time and review the re
 4. Navigate to the evidence graph tab and review the evidences, created as part of this build.
 5. Make sure that all evidences were verified using the public key.
 
+***
 ## 4. Try the promotion workflow {#try-promotion-workflo}
 
 In this step you will try to promote the release bundle to QA.
@@ -88,6 +89,7 @@ In this step you will try to promote the release bundle to QA.
    4. ./scripts/graphql_query.gql
    5. ./policy/policy.rego
 
+***
 ## 5. Configure missing evidences {#configure-missing-evidences}
 
 In this step we will configur the missing evidences so the workflow can path the policy validation.
@@ -95,6 +97,7 @@ In this step we will configur the missing evidences so the workflow can path the
 1. Uncomment the 'Approve release-bundle' step in the build workflow
 2. Add the created release bundle to Xray indexing. This will allow Xray to automatically create the SBOM
 
+***
 ## 6. Re-Run the promotion workflow {#run-promotion-workflow}
 
 In this step we will rerun the promotion workflow again, after adding all of the evidences expected by the policy.
