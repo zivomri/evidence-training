@@ -36,7 +36,7 @@ For more information about evidence on the JFrog platform, see the following res
 
 ## Prerequisites {#prerequisites}
 
-* Create a dedicated docker repository in [solenglatest.jfrog.io](https://solenglatest.jfrog.io)
+* Create a dedicated OCI repository in [solenglatest.jfrog.io](https://solenglatest.jfrog.io)
 * Create a evidence signing key using the following commands:
   ```
   openssl genrsa -out private.pem 2048
