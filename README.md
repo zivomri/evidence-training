@@ -94,7 +94,7 @@ In this step you will try to promote the release bundle to QA.
 
 In this step we will configur the missing evidences so the workflow can path the policy validation.
 
-1. Uncomment the 'Approve release-bundle' step in the build workflow
+1. Uncomment the `Approve release-bundle` step in the build workflow
 2. Add the created release bundle to Xray indexing. This will allow Xray to automatically create the SBOM
 
 ***
