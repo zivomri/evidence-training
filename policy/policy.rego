@@ -22,13 +22,13 @@ not_found := [slug | slug := expected_predicate_slugs[_]; not found_predicate_sl
 
 approver := {slug |
 	some m
-	slug := input.data.releaseBundleVersion.getVersion.evidenceConnection.edges[m].node.predicate.actor == "your name"
+	slug := input.data.releaseBundleVersion.getVersion.evidenceConnection.edges[m].node.predicate.actor
 }
 
 # Check if all expected predicateSlugs are present
 approved if {
     count({slug | slug := expected_predicate_slugs[_]; slug != ""}) == count(found_predicate_slugs & expected_predicate_slugs)
-    approver = { true }
+    approver = { "your name" }
 }
 
 output := {
