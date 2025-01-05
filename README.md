@@ -50,9 +50,18 @@ For more information about evidence on the JFrog platform, see the following res
 
 ## 
 
-## Bootstrapping  {#bootstrapping}
+## Initial configuration  {#initial-preparations}
 
-### Install JFrog CLI {#install-jfrog-cli}
+1. Fork the evidence-enablement repository
+2. Add your name as a prefix to the build name, in the build.yml file
+3. Add the following github actions variables/secrets:
+   1. Variables:
+      1. ARTIFACTORY_URL - https://solenglatest.jfrog.io
+   2. Secrets:
+      1. ARTIFACTORY_ACCESS_TOKEN - generate an access token (Not a reference token) to be used by docker login
+      3. PRIVATE_KEY - The evidence signing key you have generated as part of preparing to the training
+      2. KEY_ALIAS - the alias of the public key you uploaded to the platform
+      4. RB_KEY - a signing key that will be used to sign the Release bundle (If you do not have one you can use `evidence-demo-rbv2-key`)
 
 This section of [build.yaml](https://github.com/jfrog/Evidence-Examples/tree/main/.github/workflows) installs the latest version of the JFrog CLI and performs checkout. Please note that a valid access token is required. 
 
