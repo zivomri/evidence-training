@@ -1,7 +1,7 @@
-{
+{ "query": "{
     releaseBundleVersion
     {
-        getVersion(repositoryKey: "release-bundles-v2", name: "guybar-evidence-enablement", version: "16")
+        getVersion(repositoryKey: \"release-bundles-v2\", name: \"guybar-evidence-enablement\", version: \"16\")
         {
             createdBy
             createdAt
@@ -19,7 +19,7 @@
                     }
                 }
             }
-            artifactsConnection(first: 13, after:"YXJ0aWZhY3Q6Mw==")
+            artifactsConnection(first: 13, after:\"YXJ0aWZhY3Q6Mw==\")
             {
                 totalCount
                 pageInfo
@@ -84,4 +84,4 @@
             }
         }
     }
-}
+}"
