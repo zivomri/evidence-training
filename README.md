@@ -102,8 +102,11 @@ In this step we will configur the missing evidences so the workflow can path the
 
 In this step we will rerun the promotion workflow again, after adding all of the evidences expected by the policy.
 
-1. Navigate to the promote workflow, and run it again.
-2. Make sure the workflow completese successfully.
-3. Navigate to the release bundle in the JFrog platform using the link in the summary page.
-4. Navigate to the evidence graph tab and review the evidences, created as part of the updated build.
-5. Review the approval evidence content, and check which data is included in the evidence. Where is this data comming from?
+1. Navigate to the build workflow, and run it again.
+4. Make sure the workflow completese successfully.
+6. Navigate to the release bundle in the JFrog platform using the link in the summary page.
+7. Navigate to the evidence graph tab and review the evidences, created as part of the updated build.
+3. Check that all of the relevan evidences were created successfully, you should see approval evidence and SBOM evidence attached to the release bundle.
+4. Navigate to the promote workflow, and run it again.
+5. Make sure the workflow completese successfully.
+8. Review the approval evidence content, and check which data is included in the evidence. Where is this data comming from?
