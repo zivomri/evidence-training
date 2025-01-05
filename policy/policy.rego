@@ -26,15 +26,15 @@ approver := {slug |
 }
 
 # Check if all expected predicateSlugs are present
-approved if {
+approved := {
     count({slug | slug := expected_predicate_slugs[_]; slug != ""}) == count(found_predicate_slugs & expected_predicate_slugs)
-    approver
 }
 
 output := {
     "found": found,
     "not_found": not_found,
-    "approved": approved
+    "approved": approved,
+    "approver": approver
 }
 
 # Provide a default output to ensure the rule always produces something
