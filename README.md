@@ -19,8 +19,8 @@ These are the steps we will cover suring our training:
 3. [Running the build workflow](#run-build-workflow)  
 4. [Try the promotion workflow](#try-promotion-workflow)  
 5. [Configure missing evidences](#configure-missing-evidences)
-   1. [Configre Approval evidence](#configure-approval-evidences)
-   2. [Configure Sbom evidence](#configure-sbom-evidences)
+   1. Configre Approval evidence
+   2. Configure Sbom evidence
 6. [Run the promotion workflow](#run-promotion-workflow)  
 
 ***
@@ -34,62 +34,56 @@ For more information about evidence on the JFrog platform, see the following res
 * [Evidence service confluence space](https://jfrog-int.atlassian.net/wiki/spaces/DPCP/pages/981631021/Evidence+Knowledge+Transfer)
 ***
 
-## Prerequisites {#prerequisites}
+## 1. Prerequisites {#prerequisites}
 
-* Create a dedicated OCI repository in [solenglatest.jfrog.io](https://solenglatest.jfrog.io)
+* Create a dedicated OCI repository in [solenglatest.jfrog.io](https://solenglatest.jfrog.io) and assign it to DEV environment.
+* Create another dedicated OCI repository in [solenglatest.jfrog.io](https://solenglatest.jfrog.io) and assign it to QA environment.
 * Create a evidence signing key using the following commands:
   ```
   openssl genrsa -out private.pem 2048
   openssl rsa -in private.pem -pubout -out public.pem
   ```
-*  Upload the public key to [solenglatest.jfrog.io](https://solenglatest.jfrog.io) using the [public keys](https://jfrog.com/help/r/jfrog-platform-administration-documentation/manage-public-keys) screen
+*  Upload the public key to [solenglatest.jfrog.io](https://solenglatest.jfrog.io) using the [public keys](https://jfrog.com/help/r/jfrog-platform-administration-documentation/manage-public-keys) screen.
    * Use pbcopy to copy the public key to the artifactory UI to make sure no special characters are copied, for example:
      ```
      cat public.pem | pbcopy
      ```
 
-## Initial configuration  {#initial-configuration}
+## 2. Initial configuration  {#initial-configuration}
 
 In this section you will configure your environment to be able to run the evidence github workflow we will be using throughout the training
 
-1. Fork the evidence-enablement repository
-2. Add your name as a prefix to the build name, in the build.yml file
+1. Fork the evidence-enablement repository.
+2. Add your name as a prefix to the build name, in the build.yml file.
 3. Add the following github actions variables/secrets:
    1. Variables:
-      1. ARTIFACTORY_URL - https://solenglatest.jfrog.io
+      1. ARTIFACTORY_URL - https://solenglatest.jfrog.io.
    2. Secrets:
-      1. ARTIFACTORY_ACCESS_TOKEN - generate an access token (Not a reference token) to be used by docker login
-      3. PRIVATE_KEY - The evidence signing key you have generated as part of preparing to the training
-      2. KEY_ALIAS - the alias of the public key you uploaded to the platform
-      4. RB_KEY - a signing key that will be used to sign the Release bundle (If you do not have one you can use `evidence-demo-rbv2-key`)
+      1. ARTIFACTORY_ACCESS_TOKEN - generate an access token (Not a reference token) to be used by docker login.
+      3. PRIVATE_KEY - The evidence signing key you have generated as part of preparing to the training.
+      2. KEY_ALIAS - the alias of the public key you uploaded to the platform.
+      4. RB_KEY - a signing key that will be used to sign the Release bundle (If you do not have one you can use `evidence-demo-rbv2-key`).
 
 
-### Running the build workflow {#run-build-workflow}
+## 3. Running the build workflow {#run-build-workflow}
 
 In this secrion we will run the build workflow for the first time and review the results.
 
 1. Navigate to the build workflow, and run it.
-2. Review the build summery and see which steps and resources were created as part of the workflow
-3. Navigate to the release bundle in the JFrog platform using the link in the summary page
-4. Review the evidences, created as part of this build
-5. Make sure that all evidences were verified using the public key 
+2. Review the build summery and see which steps and resources were created as part of the workflow.
+3. Navigate to the release bundle in the JFrog platform using the link in the summary page.
+4. Navigate to the evidence graph tab and review the evidences, created as part of this build.
+5. Make sure that all evidences were verified using the public key.
 
-## Build the Docker Image {#build-the-docker-image}
+## 4. Try the promotion workflow {#try-promotion-workflo}
 
-This section of [build.yaml](https://github.com/jfrog/Evidence-Examples/tree/main/.github/workflows) builds the Docker image and deploys it to Artifactory.
+In this section you will try to promote the release bundle to QA.
 
-```
- - name: Build Docker image  
-   run: |  
-     URL=$(echo ${{ vars.ARTIFACTORY_URL }} | sed 's|^https://||')  
-     REPO_URL=${URL}'/example-project-docker-dev-virtual'  
-     docker build --build-arg REPO_URL=${REPO_URL} -f Dockerfile . \  
-     --tag ${REPO_URL}/example-project-app:${{ github.run_number }} \  
-     --output=type=image --platform linux/amd64 --metadata-file=build-metadata --push  
-     jfrog rt build-docker-create example-project-docker-dev --image-file build-metadata --build-name ${{ vars.BUILD_NAME }} --build-number ${{ github.run_number }}
-```
+1. Navigate to the promote workflow, and run it.
+2. Check if the workflow completed seuccessfully.
+3. If it did not try and figure out why the workflow failed.
 
-## Attach Package Evidence {#attach-package-evidence}
+## 5. Configure missing evidences {#configure-missing-evidences}
 
 This section of [build.yaml](https://github.com/jfrog/Evidence-Examples/tree/main/.github/workflows) creates evidence for the package containing the Docker image. The evidence is signed with your private key, as defined in the [Prerequisites](#prerequisites).
 
