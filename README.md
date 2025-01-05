@@ -55,7 +55,8 @@ In this step you will configure your environment to be able to run the evidence 
 
 1. Fork the evidence-enablement repository.
 2. Add your name as a prefix to the build name, in the build.yml file.
-3. Add the following github actions variables/secrets:
+3. Update the REPO_NAME variable in th build.yml workflow file to the OCI dev repository you have created.
+4. Add the following github actions variables/secrets:
    1. Variables:
       1. ARTIFACTORY_URL - https://solenglatest.jfrog.io.
    2. Secrets:
@@ -94,8 +95,8 @@ In this step you will try to promote the release bundle to QA.
 
 In this step we will configur the missing evidences so the workflow can path the policy validation.
 
-1. Uncomment the `Approve release-bundle` step in the build workflow
-2. Add the created release bundle to Xray indexing. This will allow Xray to automatically create the SBOM
+1. Uncomment the `Approve release-bundle` step in the build workflow.
+2. Enable Xray indexing for the release bundle created by the build workflow.
 
 ***
 ## 6. Re-Run the promotion workflow {#run-promotion-workflow}
