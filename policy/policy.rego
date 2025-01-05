@@ -1,8 +1,7 @@
 package policy
 
 # Define the expected predicateSlugs
-# expected_predicate_slugs := {"cyclonedx-vex", "approval"}
-expected_predicate_slugs := {"approval"}
+expected_predicate_slugs := {"cyclonedx-vex", "approval"}
 
 
 # Collect all predicateSlugs found in the input JSON
