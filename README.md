@@ -21,7 +21,8 @@ These are the steps we will cover suring our training:
 5. [Configure missing evidences](#configure-missing-evidences)
    1. Configre Approval evidence
    2. Configure Sbom evidence
-6. [Re-Run the promotion workflow](#run-promotion-workflow)  
+6. [Re-Run the promotion workflow](#run-promotion-workflow)
+7. Bonus step: [Add approver validation](#add-approver-validation)
 
 ***
 **Note**
@@ -111,3 +112,18 @@ In this step we will rerun the promotion workflow again, after adding all of the
 4. Navigate to the promote workflow, and run it again.
 5. Make sure the workflow completese successfully.
 8. Review the approval evidence content, and check which data is included in the evidence. Where is this data comming from?
+
+***
+***
+## 7. Bonus step: Add approver validation {#add-approver-validation}
+
+In this step we will add a validation who can approve the release bundle.
+Currently the workflow sets the approver in the approval evidence to be the actor running the workflow, but this can be changed to a human approver, based on input parameters.
+
+1. Navigate to the policy under: `./policy/policy.rego`
+2. Edit the policy file and uncomment the approver policy lines (23-26, 31, 38)
+4. Navigate to the promote workflow, and run it. It will fail.
+5. Check why the policy failed.
+4. Change the approver name in line 31 to your github user name (This is the default actor running the workflows in github).
+5. 4. Navigate to the promote workflow, and run it again. Now the approval should pass.
+
