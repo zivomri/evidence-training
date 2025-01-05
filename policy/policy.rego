@@ -20,22 +20,22 @@ found := [slug | slug := found_predicate_slugs[_]]
 
 not_found := [slug | slug := expected_predicate_slugs[_]; not found_predicate_slugs[slug]]
 
-approver := {slug |
-	some m
-	slug := input.data.releaseBundleVersion.getVersion.evidenceConnection.edges[m].node.predicate.actor
-}
+# approver := {slug |
+#	some m
+#	slug := input.data.releaseBundleVersion.getVersion.evidenceConnection.edges[m].node.predicate.actor
+# }
 
 # Check if all expected predicateSlugs are present
 approved if {
     count({slug | slug := expected_predicate_slugs[_]; slug != ""}) == count(found_predicate_slugs & expected_predicate_slugs)
-    approver = { "guybar" }
+    # approver = { "your name" }
 }
 
 output := {
     "found": found,
     "not_found": not_found,
     "approved": approved,
-    "approver": approver
+#    "approver": approver
 }
 
 # Provide a default output to ensure the rule always produces something
