@@ -15,7 +15,7 @@ We will also experience validating the existing evidences, and apply an OPA (Ope
 These are the steps we will cover suring our training:
 
 1. [Prerequisites](#prerequisites)
-2. [Initial configuration](#initial-preparations)  
+2. [Initial configuration](#initial-configuration)  
 3. [Running the build workflow](#run-build-workflow)  
 4. [Try the promotion workflow](#try-promotion-workflow)  
 5. [Configure missing evidences](#configure-missing-evidences)
@@ -48,9 +48,9 @@ For more information about evidence on the JFrog platform, see the following res
      cat public.pem | pbcopy
      ```
 
-## 
+## Initial configuration  {#initial-configuration}
 
-## Initial configuration  {#initial-preparations}
+In this section you will configure your environment to be able to run the evidence github workflow we will be using throughout the training
 
 1. Fork the evidence-enablement repository
 2. Add your name as a prefix to the build name, in the build.yml file
@@ -63,43 +63,16 @@ For more information about evidence on the JFrog platform, see the following res
       2. KEY_ALIAS - the alias of the public key you uploaded to the platform
       4. RB_KEY - a signing key that will be used to sign the Release bundle (If you do not have one you can use `evidence-demo-rbv2-key`)
 
-This section of [build.yaml](https://github.com/jfrog/Evidence-Examples/tree/main/.github/workflows) installs the latest version of the JFrog CLI and performs checkout. Please note that a valid access token is required. 
 
-```
-jobs:  
-  Docker-build-with-evidence:  
-    runs-on: ubuntu-latest  
-    steps:  
-      - name: Install jfrog cli  
-        uses: jfrog/setup-jfrog-cli@v4  
-        env:  
-          JF_URL: ${{ vars.ARTIFACTORY_URL }}  
-          JF_ACCESS_TOKEN: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }}
+### Running the build workflow {#run-build-workflow}
 
-      - uses: actions/checkout@v4
-```
+In this secrion we will run the build workflow for the first time and review the results.
 
-### Log In to the Artifactory Docker Registry {#log-in-to-the-artifactory-docker-registry}
-
-This section of [build.yaml](https://github.com/jfrog/Evidence-Examples/tree/main/.github/workflows) logs into the Docker registry, as described in the [prerequisites](#prerequisites), and sets up QEMU and Docker Buildx in preparation for building the Docker image.
-
-```
- - name: Log in to Artifactory Docker Registry  
-   uses: docker/login-action@v3  
-   with:  
-     registry: ${{ vars.ARTIFACTORY_URL }}  
-     username: ${{ secrets.JF_USER }}  
-     password: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }}
-
- - name: Set up QEMU  
-   uses: docker/setup-qemu-action@v3
-
- - name: Set up Docker Buildx  
-   uses: docker/setup-buildx-action@v3  
-   with:  
-     platforms: linux/amd64,linux/arm64  
-     install: true
-```
+1. Navigate to the build workflow, and run it.
+2. Review the build summery and see which steps and resources were created as part of the workflow
+3. Navigate to the release bundle in the JFrog platform using the link in the summary page
+4. Review the evidences, created as part of this build
+5. Make sure that all evidences were verified using the public key 
 
 ## Build the Docker Image {#build-the-docker-image}
 
