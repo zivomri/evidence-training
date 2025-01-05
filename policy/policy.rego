@@ -26,7 +26,7 @@ approver := {slug |
 }
 
 # Check if all expected predicateSlugs are present
-approved := {
+approved if {
     count({slug | slug := expected_predicate_slugs[_]; slug != ""}) == count(found_predicate_slugs & expected_predicate_slugs)
 }
 
