@@ -33,6 +33,11 @@ For more information about evidence on the JFrog platform, see the following res
 * [Training Deck](https://docs.google.com/presentation/d/1nZWFAMEOdW9n1uCNQiIVJSOFrsWGQfs-JNjydP5sxwM/edit?usp=sharing)
 * [FAQ page](https://docs.google.com/document/d/1Yzodo2Nl3XsRQYXxAzW0yidrG9XqbqmJc-DYrpVdiGE/edit?usp=sharing)
 * [Evidence service confluence space](https://jfrog-int.atlassian.net/wiki/spaces/DPCP/pages/981631021/Evidence+Knowledge+Transfer)
+
+For mor information related to OPA (Open Policy Agent) see the following resources:
+* [OPA help center](https://www.openpolicyagent.org/docs/latest/)
+* [OPA policy language guide](https://www.openpolicyagent.org/docs/latest/policy-language/)
+* [OPA Playground](https://play.openpolicyagent.org/)
 ***
 
 ## 1. Prerequisites {#prerequisites}
