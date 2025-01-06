@@ -128,7 +128,7 @@ Currently the workflow sets the approver in the approval evidence to be the acto
 1. Navigate to the policy under: `./policy/policy.rego`
 2. Edit the policy file and uncomment the approver policy lines (23-26, 31, 38)
 4. Navigate to the promote workflow, and run it. It will fail.
-5. Check why the policy failed.
+5. Check why the policy failed (look at the workflow run log).
 4. Change the approver name in line 31 to your github user name (This is the default actor running the workflows in github).
 5. 4. Navigate to the promote workflow, and run it again. Now the approval should pass.
 
