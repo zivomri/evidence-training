@@ -88,7 +88,7 @@ In this step we will run the build workflow for the first time and review the re
 In this step you will try to promote the release bundle to QA.
 
 1. Navigate to the promote workflow, and run it. You should pass an existing release bundle number as an input to the workflow.
-2. Check if the workflow completed seuccessfully.
+2. Check if the workflow completed successfully.
 3. If it did not try and figure out why the workflow failed by reviewing the following files:
    1. ./github/build.yml
    2. ./github/promote.yml
