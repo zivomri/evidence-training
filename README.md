@@ -107,7 +107,7 @@ In this step we will configur the missing evidences so the workflow can path the
 ***
 ## 6. Re-Run the promotion workflow {#run-promotion-workflow}
 
-In this step we will rerun the promotion workflow again, after adding all of the evidences expected by the policy.
+In this step we will re-run the promotion workflow again, after adding all of the evidences expected by the policy.
 
 1. Navigate to the build workflow, and run it again.
 4. Make sure the workflow completese successfully.
