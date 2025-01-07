@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REPO_NAME: omriz-evidence-docker
-      ARTIFACTORY_URL: https://solenglatest.jfrog.io/
+      ARTIFACTORY_URL: https://solenglatest.jfrog.io
     steps:
 
       - uses: actions/checkout@v4
