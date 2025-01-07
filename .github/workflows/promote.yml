@@ -31,7 +31,7 @@ jobs:
 
       - name: Call GraphQL
         run: |
-          ./scripts/graphql.sh ${{ vars.ARTIFACTORY_URL }} ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }} release-bundles-v2 ${{ github.actor }}-evidence-enablement ${{ inputs.rb-version }}
+          ./scripts/graphql.sh ${{ vars.ARTIFACTORY_URL }} ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }} release-bundles-v2 ${{ github.actor }}-evidence-training ${{ inputs.rb-version }}
           cat evidence_graph.json
 
       - name: Run policy
