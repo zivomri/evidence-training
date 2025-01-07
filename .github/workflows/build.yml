@@ -28,7 +28,7 @@ jobs:
           URL=$(echo ${ARTIFACTORY_URL} | sed 's|^https://||')
           REPO_URL=${URL}/${REPO_NAME}
           docker build -t ${REPO_URL}/example-go-app:${{ github.run_number }} .
-          jf docker push ${REPO_URL}/example-go-app:${{ github.run_number }}
+          jf docker push ${REPO_URL}/example-go-app:${{ github.run_number }}  --build-name=omriz-${{ github.workflow }} --build-number=${{ github.run_number }}
 
       - name: Evidence on docker
         run: |
