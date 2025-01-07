@@ -20,7 +20,7 @@ jobs:
       - name: Install jfrog cli
         uses: jfrog/setup-jfrog-cli@v4
         env:
-          JF_URL: ${ARTIFACTORY_URL}
+          JF_URL: "https://solenglatest.jfrog.io"
           JF_ACCESS_TOKEN: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }}
 
       - name: Build Docker image
@@ -59,7 +59,7 @@ jobs:
         run: |
           echo '{ "files": [ {"build": "'"omriz-${{ github.workflow }}/${{ github.run_number }}"'" } ] }' > bundle-spec.json
           jf release-bundle-create ${{ github.actor }}-evidence-training ${{ github.run_number }} --signing-key ${{ secrets.RB_KEY }} --spec bundle-spec.json --sync=true
-          VER_LINK=${ARTIFACTORY_URL}'/ui/artifactory/lifecycle/?bundleName='${{ github.actor }}-evidence-training'&bundleToFlash='${{ github.actor }}-evidence-training'&releaseBundleVersion='${{ github.run_number }}'&repositoryKey=release-bundles-v2&activeKanbanTab=promotion'
+          VER_LINK='https://solenglatest.jfrog.io/ui/artifactory/lifecycle/?bundleName='${{ github.actor }}-evidence-training'&bundleToFlash='${{ github.actor }}-evidence-training'&releaseBundleVersion='${{ github.run_number }}'&repositoryKey=release-bundles-v2&activeKanbanTab=promotion'
           echo '📦 Release bundle ['${{ github.actor }}-evidence-training:${{ github.run_number }}']('${VER_LINK}') created' >> $GITHUB_STEP_SUMMARY
 
       # - name: Approve release-bundle
