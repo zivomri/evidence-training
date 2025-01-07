@@ -20,7 +20,7 @@ jobs:
       - name: Install jfrog cli
         uses: jfrog/setup-jfrog-cli@v4
         env:
-          JF_URL: ${{ vars.ARTIFACTORY_URL }}
+          JF_URL: https://solenglatest.jfrog.io
           JF_ACCESS_TOKEN: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }}
 
       - name: Install OPA
@@ -31,7 +31,7 @@ jobs:
 
       - name: Call GraphQL
         run: |
-          ./scripts/graphql.sh ${{ vars.ARTIFACTORY_URL }} ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }} release-bundles-v2 ${{ github.actor }}-evidence-training ${{ inputs.rb-version }}
+          ./scripts/graphql.sh https://solenglatest.jfrog.io ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }} release-bundles-v2 ${{ github.actor }}-evidence-training ${{ inputs.rb-version }}
           cat evidence_graph.json
 
       - name: Run policy
